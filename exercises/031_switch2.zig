@@ -29,12 +29,14 @@ pub fn main() void {
             // ...
             25 => 'Y',
             26 => 'Z',
+            else => '!'
             // As in the last exercise, please add the 'else' clause
             // and this time, have it return an exclamation mark '!'.
         };
 
-        std.debug.print("{c}", .{real_char});
+        std.debug.print("{u}", .{real_char});
         // Note: "{c}" forces print() to display the value as a character.
+        // "{u}" for Unicode handles non-ascii characters, too.
         // Can you guess what happens if you remove the "c"? Try it!
     }
 
