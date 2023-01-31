@@ -8,7 +8,7 @@ const print = std.debug.print;
 // When changing this version, be sure to also update README.md in two places:
 //     1) Getting Started
 //     2) Version Changes
-const needed_version = std.SemanticVersion.parse("0.10.0-dev.3978") catch unreachable;
+const needed_version = std.SemanticVersion.parse("0.11.0-dev.1302") catch unreachable;
 
 const Exercise = struct {
     /// main_file must have the format key_name.zig.
@@ -54,12 +54,12 @@ const Exercise = struct {
 const exercises = [_]Exercise{
     .{
         .main_file = "001_hello.zig",
-        .output = "Hello world",
+        .output = "Hello world!",
         .hint = "DON'T PANIC!\nRead the error above.\nSee how it has something to do with 'main'?\nOpen up the source file as noted and read the comments.\nYou can do this!",
     },
     .{
         .main_file = "002_std.zig",
-        .output = "Standard Library",
+        .output = "Standard Library.",
     },
     .{
         .main_file = "003_assignment.zig",
@@ -123,7 +123,7 @@ const exercises = [_]Exercise{
     },
     .{
         .main_file = "016_for2.zig",
-        .output = "13",
+        .output = "The value of bits '1101': 13.",
     },
     .{
         .main_file = "017_quiz2.zig",
@@ -137,7 +137,7 @@ const exercises = [_]Exercise{
     },
     .{
         .main_file = "019_functions2.zig",
-        .output = "2 4 8 16",
+        .output = "Powers of two: 2 4 8 16",
     },
     .{
         .main_file = "020_quiz3.zig",
@@ -151,7 +151,7 @@ const exercises = [_]Exercise{
     },
     .{
         .main_file = "022_errors2.zig",
-        .output = "I compiled",
+        .output = "I compiled!",
         .hint = "Get the error union type right to allow this to compile.",
     },
     .{
@@ -418,46 +418,51 @@ const exercises = [_]Exercise{
         .main_file = "083_anonymous_lists.zig",
         .output = "I say hello!",
     },
+    // disabled because of https://github.com/ratfactor/ziglings/issues/163
+    // .{
+    //     .main_file = "084_async.zig",
+    //     .output = "foo() A",
+    //     .hint = "Read the facts. Use the facts.",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "085_async2.zig",
+    //     .output = "Hello async!",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "086_async3.zig",
+    //     .output = "5 4 3 2 1",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "087_async4.zig",
+    //     .output = "1 2 3 4 5",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "088_async5.zig",
+    //     .output = "Example Title.",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "089_async6.zig",
+    //     .output = ".com: Example Title, .org: Example Title.",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "090_async7.zig",
+    //     .output = "beef? BEEF!",
+    //     .@"async" = true,
+    // },
+    // .{
+    //     .main_file = "091_async8.zig",
+    //     .output = "ABCDEF",
+    //     .@"async" = true,
+    // },
     .{
-        .main_file = "084_async.zig",
-        .output = "foo() A",
-        .hint = "Read the facts. Use the facts.",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "085_async2.zig",
-        .output = "Hello async!",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "086_async3.zig",
-        .output = "5 4 3 2 1",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "087_async4.zig",
-        .output = "1 2 3 4 5",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "088_async5.zig",
-        .output = "Example Title.",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "089_async6.zig",
-        .output = ".com: Example Title, .org: Example Title.",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "090_async7.zig",
-        .output = "beef? BEEF!",
-        .@"async" = true,
-    },
-    .{
-        .main_file = "091_async8.zig",
-        .output = "ABCDEF",
-        .@"async" = true,
+        .main_file = "999_the_end.zig",
+        .output = "This is the end for now!\nWe hope you had fun and were able to learn a lot, so visit us again when the next exercises are available.",
     },
 };
 
@@ -621,7 +626,7 @@ const ZiglingStep = struct {
 
             print("\n{s}Edit exercises/{s} and run this again.{s}", .{ red_text, self.exercise.main_file, reset_text });
             print("\n{s}To continue from this zigling, use this command:{s}\n    {s}zig build {s}{s}\n", .{ red_text, reset_text, bold_text, self.exercise.key(), reset_text });
-            std.os.exit(0);
+            std.os.exit(1);
         };
     }
 
@@ -682,17 +687,19 @@ const ZiglingStep = struct {
             },
         }
 
+        const trimOutput = std.mem.trim(u8, output, " \r\n");
+        const trimExerciseOutput = std.mem.trim(u8, self.exercise.output, " \r\n");
         // validate the output
-        if (std.mem.indexOf(u8, output, self.exercise.output) == null) {
+        if (std.mem.indexOf(u8, trimOutput, trimExerciseOutput) == null or trimOutput.len != trimExerciseOutput.len) {
             print(
                 \\
                 \\{s}----------- Expected this output -----------{s}
-                \\{s}
+                \\"{s}"
                 \\{s}----------- but found -----------{s}
-                \\{s}
+                \\"{s}"
                 \\{s}-----------{s}
                 \\
-            , .{ red_text, reset_text, self.exercise.output, red_text, reset_text, output, red_text, reset_text });
+            , .{ red_text, reset_text, trimExerciseOutput, red_text, reset_text, trimOutput, red_text, reset_text });
             return error.InvalidOutput;
         }
 
@@ -711,9 +718,10 @@ const ZiglingStep = struct {
         zig_args.append("build-exe") catch unreachable;
 
         // Enable the stage 1 compiler if using the async feature
-        if (self.exercise.@"async") {
-            zig_args.append("-fstage1") catch unreachable;
-        }
+        // disabled because of https://github.com/ratfactor/ziglings/issues/163
+        // if (self.exercise.@"async") {
+        //     zig_args.append("-fstage1") catch unreachable;
+        // }
 
         if (builder.color != .auto) {
             zig_args.append("--color") catch unreachable;
