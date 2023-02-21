@@ -27,6 +27,7 @@ or a "systems" level language such as C.
 Each exercise is self-contained and self-explained. However, you're encouraged
 to also check out these Zig language resources for more detail:
 
+* https://ziglang.org/learn/
 * https://ziglearn.org/
 * https://ziglang.org/documentation/master/
 
@@ -41,7 +42,7 @@ Verify the installation and build number of `zig` like so:
 
 ```bash
 $ zig version
-0.11.0-dev.1302+xxxxxxxxx
+0.11.0-dev.1650+xxxxxxxxx
 ```
 
 Clone this repository with Git:
@@ -61,7 +62,7 @@ $ zig build
 
 The Zig language is under very active development. In order to be current,
 Ziglings tracks **development** builds of the Zig compiler rather than
-versioned **release** builds. The last stable release was `0.10.0`, but Ziglings
+versioned **release** builds. The last stable release was `0.10.1`, but Ziglings
 needs a dev build with pre-release version "0.11.0" and a build number at least
 as high as that shown in the example version check above.
 
@@ -81,7 +82,9 @@ about input:
 
 ### Version Changes
 
-Version-0.11.0-dev.1302+xxxxxxxxx
+Version-0.11.0-dev.1650+xxxxxxxxx
+* *2023-02-12* zig 0.11.0-dev.1638 - changes in `std.Build` cache_root now returns a directory struct
+* *2023-02-04* zig 0.11.0-dev.1568 - changes in `std.Build` (combine `std.build` and `std.build.Builder` into `std.Build`)
 * *2023-01-14* zig 0.11.0-dev.1302 - changes in `@addWithOverflow` (now returns a tuple) and `@typeInfo`; temporary disabled async functionality
 * *2022-09-09* zig 0.10.0-dev.3978 - change in `NativeTargetInfo.detect` in build
 * *2022-09-06* zig 0.10.0-dev.3880 - Ex 074 correctly fails again: comptime array len
@@ -162,7 +165,9 @@ Core Language
 * [x] Quoted identifiers @""
 * [x] Anonymous structs/tuples/lists
 * [ ] Async <--- IN PROGRESS!
-* [ ] Interfaces
+* [X] Interfaces
+* [X] Working with C
+* [ ] String formatting
 
 ## Contributing
 
