@@ -48,9 +48,7 @@ const Path = struct {
 // instead.
 //
 // Please fill in the body of this function!
-fn makePath(from: *Place, to: *Place, dist: u8) Path {
-
-}
+fn makePath(from: *Place, to: *Place, dist: u8) Path {}
 
 // Using our new function, these path definitions take up considerably less
 // space in our program now!
@@ -102,7 +100,7 @@ const HermitsNotebook = struct {
     end_of_entries: u8 = 0,
 
     fn getEntry(self: *HermitsNotebook, place: *const Place) ?*NotebookEntry {
-        for (self.entries) |*entry, i| {
+        for (self.entries, 0..) |*entry, i| {
             if (i >= self.end_of_entries) break;
             if (place == entry.*.?.place) return &entry.*.?;
         }
@@ -151,8 +149,8 @@ const HermitsNotebook = struct {
 };
 
 pub fn main() void {
-    const start = &a;        // Archer's Point
-    const destination = &f;  // Fox Pond
+    const start = &a; // Archer's Point
+    const destination = &f; // Fox Pond
 
     // We could either have this:
     //

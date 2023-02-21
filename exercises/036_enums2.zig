@@ -28,11 +28,7 @@ const std = @import("std");
 //     #RRGGBB
 //
 // Please define and use a pure blue value Color:
-const Color = enum(u32) {
-    red = 0xff0000,
-    green = 0x00ff00,
-    blue = 0x0000ff
-};
+const Color = enum(u32) { red = 0xff0000, green = 0x00ff00, blue = 0x0000ff };
 
 pub fn main() void {
     // Remember Zig's multi-line strings? Here they are again.

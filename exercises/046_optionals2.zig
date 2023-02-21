@@ -21,7 +21,7 @@ const std = @import("std");
 
 const Elephant = struct {
     letter: u8,
-    tail: ?*Elephant = null, 
+    tail: ?*Elephant = null,
     visited: bool = false,
 };
 

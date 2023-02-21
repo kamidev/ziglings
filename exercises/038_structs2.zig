@@ -34,7 +34,7 @@ pub fn main() void {
     };
 
     // Please add "Zump the Loud" with the following properties:
-       chars[1] = Character{
+    chars[1] = Character{
         .class = Class.bard,
         .gold = 10,
         .health = 100,
@@ -44,7 +44,7 @@ pub fn main() void {
     // it do and why?
 
     // Printing all RPG characters in a loop:
-    for (chars) |c, num| {
+    for (chars, 0..) |c, num| {
         std.debug.print("Character {} - G:{} H:{} XP:{}\n", .{
             num + 1, c.gold, c.health, c.experience,
         });
