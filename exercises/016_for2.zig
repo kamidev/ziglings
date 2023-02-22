@@ -1,8 +1,9 @@
 //
-// For loops also let you store the "index" of the iteration - a
-// number starting with 0 that counts up with each iteration:
+// For loops also let you use the "index" of the iteration, a number
+// that counts up with each iteration. To access the index of iteration,
+// specify a second condition as well as a second capture value.
 //
-//     for (items) |item, index| {
+//     for (items, 0..) |item, index| {
 //
 //         // Do something with item and index
 //
