@@ -210,9 +210,8 @@ pub fn build(b: *Build) !void {
     }
     ziglings_step.dependOn(prev_step);
 
-    // Disabled, see issue 272
-    // const test_step = b.step("test", "Run all the tests");
-    // // test_step.dependOn(tests.addCliTests(b, &exercises));
+    const test_step = b.step("test", "Run all the tests");
+    test_step.dependOn(tests.addCliTests(b, &exercises));
 }
 
 var use_color_escapes = false;
@@ -1075,6 +1074,10 @@ const exercises = [_]Exercise{
     .{
         .main_file = "100_for4.zig",
         .output = "Arrays match!",
+    },
+    .{
+        .main_file = "101_for5.zig",
+        .output = "1. Wizard (Gold: 25, XP: 40)\n2. Bard (Gold: 11, XP: 17)\n3. Bard (Gold: 5, XP: 55)\n4. Warrior (Gold: 7392, XP: 21)",
     },
     .{
         .main_file = "999_the_end.zig",
